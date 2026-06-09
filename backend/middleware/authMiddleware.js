@@ -1,13 +1,16 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const token = req.header("Authorization");
+  const authHeader = req.header("Authorization");
+  
 
-  if (!token) {
+  if (!authHeader) {
     return res.status(401).json({
-      message: "Access denied. No token provided."
+      message: "Invalid authorization format."
     });
   }
+
+  const token = authHeader.split(" ")[1];
 
   try {
     const verified = jwt.verify(
@@ -16,14 +19,13 @@ const verifyToken = (req, res, next) => {
     );
 
     req.user = verified;
-
     next();
 
   } catch (err) {
     console.log(err);
 
     return res.status(400).json({
-      message: "Invalid token",
+      message: "Token missing",
       error: err.message
     });
   }
