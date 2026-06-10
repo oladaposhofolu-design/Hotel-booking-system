@@ -81,7 +81,7 @@ router.get(
         .populate("room");
 
       res.json(bookings);
-
+      console.log(bookings)
     } catch (err) {
       res.status(500).json(err);
     }
