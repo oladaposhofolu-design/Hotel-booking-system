@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function BookRoom() {
-  const [roomId, setRoomId] = useState("");
+  const { id } = useParams();
+ const [roomId] = useState(id);
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [guests, setGuests] = useState("");
@@ -44,14 +46,9 @@ function BookRoom() {
       </div>
      
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Room ID"
-          value={roomId}
-          onChange={(e) => setRoomId(e.target.value)}
-        />
+       
 
-        <br /><br />
+        
 
         <input
           type="date"
