@@ -78,7 +78,19 @@ function AdminBookings() {
         >
           <h3>{booking.room.roomType}</h3>
           <p>User: {booking.user.email}</p>
-          <p>Status: {booking.status}</p>
+         <p
+  style={{
+    color:
+      booking.status === "Approved"
+        ? "green"
+        : booking.status === "Cancelled"
+        ? "red"
+        : "orange",
+    fontWeight: "bold"
+  }}
+>
+  Status: {booking.status}
+</p>
           <p>Guests: {booking.guests}</p>
           <p>Payment Status: {booking.paymentStatus}</p>
 <div>
