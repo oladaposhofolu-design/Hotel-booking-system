@@ -9,6 +9,8 @@ const hotelRoutes = require("./routes/hotel");
 const roomRoutes = require("./routes/room");
 const bookingRoutes = require("./routes/booking");
 const paymentRoutes = require("./routes/payment");
+const userRoutes = require("./routes/userRoutes");
+const path = require("path");
 
 // middleware
 app.use(cors());
@@ -19,6 +21,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/hotel", hotelRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/users", userRoutes);
+app.use("/uploads",express.static(path.join(__dirname, "uploads")));
 
 
 // MongoDB connectionS

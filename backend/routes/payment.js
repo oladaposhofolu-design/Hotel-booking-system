@@ -36,4 +36,22 @@ router.put(
   }
 );
 
+router.get(
+  "/all",
+  verifyToken,
+  async (req, res) => {
+    try {
+      const payments = await Booking.find({
+        paymentStatus: "Paid"
+      })
+      .populate("user", "name email")
+      .populate("room", "roomType roomNumber");
+
+      res.json(payments);
+
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+);
 module.exports = router;

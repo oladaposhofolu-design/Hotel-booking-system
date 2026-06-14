@@ -6,13 +6,25 @@ const Room = require("../models/Room");
 const verifyToken = require("../middleware/authMiddleware");
 const verifyAdmin = require("../middleware/adminMiddleware");
 
+const upload = require("../config/multer");
+
 router.post(
   "/create",
   verifyToken,
   verifyAdmin,
+  upload.single("image"),
   async (req, res) => {
     try {
-      const room = new Room(req.body);
+      const room = new Room({
+  roomNumber: req.body.roomNumber,
+  roomType: req.body.roomType,
+  price: req.body.price,
+  capacity: req.body.capacity,
+  available: true,
+  image: req.file
+    ? req.file.filename
+    : ""
+});
 
       await room.save();
 
