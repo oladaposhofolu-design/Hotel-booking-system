@@ -36,7 +36,7 @@ function CreateRoom() {
       }
 
       await axios.post(
-        "http://localhost:5000/api/rooms/create",
+        "https://hotel-booking-backend-ot49.onrender.com/api/rooms/create",
         data,
         {
           headers: {

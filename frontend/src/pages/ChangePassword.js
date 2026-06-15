@@ -16,7 +16,7 @@ function ChangePassword() {
         localStorage.getItem("token");
 
       const res = await axios.put(
-        "http://localhost:5000/api/users/change-password",
+        "https://hotel-booking-backend-ot49.onrender.com/api/users/change-password",
         {
           currentPassword,
           newPassword

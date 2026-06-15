@@ -13,7 +13,7 @@ function Payments() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/payments/all",
+        "https://hotel-booking-backend-ot49.onrender.com/api/payments/all",
         {
           headers: {
             Authorization: `Bearer ${token}`

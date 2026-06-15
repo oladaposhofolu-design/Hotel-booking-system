@@ -20,7 +20,7 @@ function Register() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://hotel-booking-backend-ot49.onrender.com/api/auth/register",
         formData
       );
 

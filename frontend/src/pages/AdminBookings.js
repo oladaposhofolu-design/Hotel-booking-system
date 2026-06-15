@@ -11,7 +11,7 @@ function AdminBookings() {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/bookings/all", {
+      const res = await axios.get("https://hotel-booking-backend-ot49.onrender.com/api/bookings/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -26,7 +26,7 @@ function AdminBookings() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:5000/api/bookings/approve/${id}`,
+        `https://hotel-booking-backend-ot49.onrender.com/api/bookings/approve/${id}`,
         {},
         {
           headers: {
@@ -47,7 +47,7 @@ function AdminBookings() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:5000/api/bookings/cancel/${id}`,
+        `https://hotel-booking-backend-ot49.onrender.com/api/bookings/cancel/${id}`,
         {},
         {
           headers: {

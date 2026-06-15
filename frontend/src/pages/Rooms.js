@@ -18,8 +18,8 @@ function Rooms() {
         const token = localStorage.getItem("token");
 
         const [roomsRes, bookingsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/rooms"),
-          axios.get("http://localhost:5000/api/bookings/my-bookings", {
+          axios.get("https://hotel-booking-backend-ot49.onrender.com/api/rooms"),
+          axios.get("https://hotel-booking-backend-ot49.onrender.com/api/bookings/my-bookings", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -91,7 +91,7 @@ function Rooms() {
 
               {room.image && (
   <img
-    src={`http://localhost:5000/uploads/${room.image}`}
+    src={`https://hotel-booking-backend-ot49.onrender.com/uploads/${room.image}`}
     alt={room.roomType}
     style={{
       width: "100%",

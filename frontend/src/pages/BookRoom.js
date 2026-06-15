@@ -16,7 +16,7 @@ function BookRoom() {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "http://localhost:5000/api/bookings/create",
+        "https://hotel-booking-backend-ot49.onrender.com/api/bookings/create",
         {
           room: roomId,
           checkInDate,

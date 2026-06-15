@@ -22,10 +22,10 @@ function AdminDashboard() {
           paymentsRes,
           usersRes
         ] = await Promise.all([
-          axios.get("http://localhost:5000/api/rooms"),
+          axios.get("https://hotel-booking-backend-ot49.onrender.com/api/rooms"),
 
           axios.get(
-            "http://localhost:5000/api/bookings/all",
+            "https://hotel-booking-backend-ot49.onrender.com/api/bookings/all",
             {
               headers: {
                 Authorization: `Bearer ${token}`
@@ -34,7 +34,7 @@ function AdminDashboard() {
           ),
 
           axios.get(
-            "http://localhost:5000/api/payments/all",
+            "https://hotel-booking-backend-ot49.onrender.com/api/payments/all",
             {
               headers: {
                 Authorization: `Bearer ${token}`
@@ -43,7 +43,7 @@ function AdminDashboard() {
           ),
 
           axios.get(
-            "http://localhost:5000/api/users/all",
+            "https://hotel-booking-backend-ot49.onrender.com/api/users/all",
             {
               headers: {
                 Authorization: `Bearer ${token}`

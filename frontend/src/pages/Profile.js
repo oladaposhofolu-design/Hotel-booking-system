@@ -16,7 +16,7 @@ function Profile() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/users/profile",
+        "https://hotel-booking-backend-ot49.onrender.com/api/users/profile",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -45,7 +45,7 @@ function Profile() {
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        "http://localhost:5000/api/users/profile",
+        "https://hotel-booking-backend-ot49.onrender.com/api/users/profile",
         {
           name: user.name,
           email: user.email

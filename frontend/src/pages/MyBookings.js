@@ -13,7 +13,7 @@ function MyBookings() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/bookings/my-bookings",
+        "https://hotel-booking-backend-ot49.onrender.com/api/bookings/my-bookings",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -32,7 +32,7 @@ function MyBookings() {
     const token = localStorage.getItem("token");
 
     const res = await axios.put(
-      `http://localhost:5000/api/bookings/cancel/${id}`,
+      `https://hotel-booking-backend-ot49.onrender.com/api/bookings/cancel/${id}`,
       {},
       {
         headers: {
