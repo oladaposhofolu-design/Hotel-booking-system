@@ -8,13 +8,30 @@ function PaymentSuccess() {
 
   const sessionId = searchParams.get("session_id");
 
-  useEffect(() => {
-    if (!sessionId) {
+ useEffect(() => {
+  if (!sessionId) {
+    setStatus("failed");
+    return;
+  }
+
+  const verifyPayment = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL || "https://hotel-booking-backend-ot49.onrender.com"}/api/payments/verify/${sessionId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setStatus(res.data.success ? "success" : "failed");
+    } catch (err) {
+      console.error(err);
       setStatus("failed");
-      return;
     }
-    verifyPayment();
-  }, [sessionId]);
+  };
+
+  verifyPayment();
+}, [sessionId]);
 
   const verifyPayment = async () => {
     try {
