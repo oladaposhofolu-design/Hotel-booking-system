@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PayButton from "../components/PayButton";
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
@@ -27,29 +28,29 @@ function MyBookings() {
       console.log(err);
     }
   };
+
   const cancelBooking = async (id) => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    const res = await axios.put(
-      `https://hotel-booking-backend-ot49.onrender.com/api/bookings/cancel/${id}`,
-      {},
-      {
-        headers: {
-           Authorization: `Bearer ${token}`
+      const res = await axios.put(
+        `https://hotel-booking-backend-ot49.onrender.com/api/bookings/cancel/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      }
-    );
+      );
 
-    alert(res.data.message);
+      alert(res.data.message);
+      fetchBookings();
 
-    fetchBookings();
-
-  } catch (err) {
-    console.log(err);
-    alert("Cancellation failed");
-  }
-};
+    } catch (err) {
+      console.log(err);
+      alert("Cancellation failed");
+    }
+  };
 
   return (
     <div>
@@ -70,28 +71,38 @@ function MyBookings() {
 
           <p>Guests: {booking.guests}</p>
 
+          <p>Payment Status: {booking.paymentStatus}</p>
+
           <p>
-            Payment Status:
-            {booking.paymentStatus}
+            Check In: {new Date(booking.checkInDate).toLocaleDateString()}
           </p>
 
           <p>
-            Check In:
-            {new Date(
-              booking.checkInDate
-            ).toLocaleDateString()}
+            Check Out: {new Date(booking.checkOutDate).toLocaleDateString()}
           </p>
 
-          <p>
-            Check Out:
-            {new Date(
-              booking.checkOutDate
-            ).toLocaleDateString()}
-          </p>
-          <button onClick={() => cancelBooking(booking._id)}> Cancel Booking
-          </button>
+          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            {/* Show Pay Now button only if booking isn't cancelled */}
+            {booking.status !== "Cancelled" && (
+              <PayButton
+                bookingId={booking._id}
+                paymentStatus={booking.paymentStatus}
+              />
+            )}
+
+            {/* Only allow cancel if not already cancelled or paid */}
+            {booking.status !== "Cancelled" && booking.paymentStatus !== "Paid" && (
+              <button onClick={() => cancelBooking(booking._id)}>
+                Cancel Booking
+              </button>
+            )}
+          </div>
         </div>
       ))}
+
+      {bookings.length === 0 && (
+        <p>No bookings found.</p>
+      )}
     </div>
   );
 }

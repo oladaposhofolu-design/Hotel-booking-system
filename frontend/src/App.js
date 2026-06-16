@@ -23,6 +23,7 @@ import CreateRoom from "./pages/CreateRoom";
 import Footer from "./components/Footer";
 import Users from "./pages/Users";
 import Payments from "./pages/Payments";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 function App() {
   return (
@@ -113,6 +114,15 @@ function App() {
     <AdminRoute>
       <Payments />
     </AdminRoute>
+  }
+/>
+
+<Route
+  path="/payment-success"
+  element={
+    <ProtectedRoute>
+      <PaymentSuccess />
+    </ProtectedRoute>
   }
 />
 
