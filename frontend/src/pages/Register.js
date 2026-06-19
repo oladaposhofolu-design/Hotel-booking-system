@@ -43,7 +43,7 @@ function Register() {
     }
 
     try {
-      const res = await axios.post(
+      await axios.post(
         "https://hotel-booking-backend-ot49.onrender.com/api/auth/register",
         formData
       );
