@@ -1,0 +1,145 @@
+.amenities-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 80px 20px;
+}
+
+.amenities-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.amenities-header h2 {
+  font-size: 2.25rem;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.amenities-header p {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.amenity-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.amenity-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #0891b2;
+  background: linear-gradient(135deg, #f8fafc 0%, rgba(8, 145, 178, 0.05) 100%);
+}
+
+.amenity-icon {
+  font-size: 48px;
+  color: #0891b2;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.amenity-card:hover .amenity-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.amenity-card h6 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .amenities-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .amenities-header h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .amenities-section {
+    padding: 60px 20px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .amenity-card {
+    padding: 20px 15px;
+    min-height: 150px;
+  }
+
+  .amenity-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .amenity-card h6 {
+    font-size: 14px;
+  }
+
+  .amenities-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .amenities-header p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .amenities-section {
+    padding: 40px 16px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .amenity-card {
+    padding: 16px 12px;
+    min-height: 140px;
+  }
+
+  .amenity-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .amenity-card h6 {
+    font-size: 12px;
+  }
+
+  .amenities-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .amenities-header p {
+    font-size: 0.9rem;
+  }
+}

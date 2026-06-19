@@ -1,0 +1,141 @@
+.search-bar-section {
+  background: white;
+  padding: 40px 20px;
+  margin: -30px 0 0 0;
+  position: relative;
+  z-index: 10;
+}
+
+.search-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 1px solid #e2e8f0;
+}
+
+.search-card h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e293b;
+  font-size: 22px;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.search-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-group label {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.search-group input,
+.search-group select {
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.search-group input:focus,
+.search-group select:focus {
+  outline: none;
+  border-color: #0891b2;
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+}
+
+.search-group input::placeholder {
+  color: #94a3b8;
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 45px;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.2);
+}
+
+.search-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .search-bar-section {
+    padding: 30px 15px;
+    margin: -20px 0 0 0;
+  }
+
+  .search-card {
+    padding: 20px;
+  }
+
+  .search-card h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-card {
+    padding: 16px;
+  }
+
+  .search-card h3 {
+    font-size: 16px;
+  }
+
+  .search-form {
+    gap: 12px;
+  }
+
+  .search-group input,
+  .search-group select {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .search-btn {
+    height: 40px;
+    font-size: 13px;
+  }
+}

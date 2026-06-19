@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaSearch, FaSpinner } from "react-icons/fa";
+import "./Rooms.css";
 
 function Rooms() {
   const [rooms, setRooms] = useState([]);
@@ -19,15 +21,15 @@ function Rooms() {
 
         const [roomsRes, bookingsRes] = await Promise.all([
           axios.get("https://hotel-booking-backend-ot49.onrender.com/api/rooms"),
-          axios.get("https://hotel-booking-backend-ot49.onrender.com/api/bookings/my-bookings", {
+          token ? axios.get("https://hotel-booking-backend-ot49.onrender.com/api/bookings/my-bookings", {
             headers: { Authorization: `Bearer ${token}` },
-          }),
+          }) : Promise.resolve({ data: [] }),
         ]);
 
         setRooms(roomsRes.data);
         setBookings(bookingsRes.data);
       } catch (err) {
-        setError("Failed to fetch data");
+        setError("Failed to fetch rooms. Please try again later.");
         console.error(err);
       } finally {
         setLoading(false);
@@ -41,87 +43,101 @@ function Rooms() {
     room.roomType.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (loading) return <p>Loading rooms...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <FaSpinner className="spinner" />
+        <p>Loading rooms...</p>
+      </div>
+    );
+  }
 
-  // Step 13: Handle empty search results
-  if (filteredRooms.length === 0) {
+  if (error) {
     return (
       <div className="container">
-        <h2>No rooms found.</h2>
+        <div className="error-message">{error}</div>
       </div>
     );
   }
 
   return (
-    <div className="container">
-      <input
-        type="text"
-        placeholder="Search room type..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{ marginBottom: "20px", maxWidth: "300px" }}
-      />
+    <div className="rooms-container">
+      <div className="rooms-header">
+        <h1>Available Rooms</h1>
+        <p>Browse and book your perfect hotel room</p>
+      </div>
 
-      <h2>Available Rooms</h2>
+      <div className="container">
+        <div className="search-section">
+          <div className="search-box">
+            <FaSearch />
+            <input
+              type="text"
+              placeholder="Search by room type..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {filteredRooms.map((room) => {
-          const isBookedByUser = bookings.some(
-            (booking) => booking.roomId === room._id
-          );
+        {filteredRooms.length === 0 ? (
+          <div className="no-results">
+            <h3>No rooms found</h3>
+            <p>Try adjusting your search filters</p>
+          </div>
+        ) : (
+          <div className="rooms-grid">
+            {filteredRooms.map((room) => {
+              const isBookedByUser = bookings.some(
+                (booking) => booking.roomId === room._id
+              );
 
-          // Step 12: Count bookings per room
-          const bookingCount = bookings.filter(
-            (booking) => booking.room && booking.room._id === room._id
-          ).length;
+              const bookingCount = bookings.filter(
+                (booking) => booking.room && booking.room._id === room._id
+              ).length;
 
-          return (
-            <div
-              key={room._id}
-             style={{
-  background: "white",
-  borderRadius: "12px",
-  padding: "20px",
-  boxShadow: "0 3px 12px rgba(0,0,0,0.1)",
-  width: "300px"
-}}
-            >
+              return (
+                <div key={room._id} className="room-card">
+                  <div className="room-image-container">
+                    {room.image && (
+                      <img
+                        src={`https://hotel-booking-backend-ot49.onrender.com/uploads/${room.image}`}
+                        alt={room.roomType}
+                        className="room-image"
+                      />
+                    )}
+                    <div className={`room-status ${room.available ? 'available' : 'booked'}`}>
+                      {room.available ? '✅ Available' : '❌ Booked'}
+                    </div>
+                  </div>
 
+                  <div className="room-info">
+                    <h3>{room.roomType}</h3>
+                    <p className="room-number"><strong>Room #:</strong> {room.roomNumber}</p>
+                    <p className="room-capacity"><strong>Capacity:</strong> {room.capacity} Guests</p>
+                    <p className="room-bookings"><strong>Bookings:</strong> {bookingCount}</p>
+                    
+                    <div className="room-price">
+                      ₦{room.price?.toLocaleString()}/Night
+                    </div>
 
-              {room.image && (
-  <img
-    src={`https://hotel-booking-backend-ot49.onrender.com/uploads/${room.image}`}
-    alt={room.roomType}
-    style={{
-      width: "100%",
-      height: "200px",
-      objectFit: "cover",
-      borderRadius: "10px",
-      marginBottom: "10px"
-    }}
-  />
-)}
-              <h3>{room.roomType}</h3>
-              <p><strong>Room Number:</strong> {room.roomNumber}</p>
-              <p><strong>Price:</strong> ₦{room.price}</p>
-              <p><strong>Capacity:</strong> {room.capacity} Guests</p>
-              <p><strong>Status:</strong> {room.available ? "✅ Available" : "❌ Booked"}</p>
-              <p><strong>Bookings:</strong> {bookingCount}</p>
-
-              <button
-                disabled={!room.available || isBookedByUser}
-                onClick={() => navigate(`/book-room/${room._id}`)}
-              >
-                {room.available
-                  ? isBookedByUser
-                    ? "Already Booked"
-                    : "Book Room"
-                  : "Unavailable"}
-              </button>
-            </div>
-          );
-        })}
+                    <button
+                      className={`book-btn ${!room.available || isBookedByUser ? 'disabled' : ''}`}
+                      disabled={!room.available || isBookedByUser}
+                      onClick={() => navigate(`/book-room/${room._id}`)}
+                    >
+                      {room.available
+                        ? isBookedByUser
+                          ? "Already Booked"
+                          : "Book Now"
+                        : "Unavailable"}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

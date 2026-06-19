@@ -28,7 +28,10 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 function App() {
   return (
     <BrowserRouter>
+
+    <div className="app">
       <Navbar />
+
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -86,17 +89,29 @@ function App() {
 
         <Route
   path="/profile"
-  element={<Profile />}
+  element={
+    <ProtectedRoute>
+      <Profile />
+    </ProtectedRoute>
+  }
 />
 
 <Route
   path="/change-password"
-  element={<ChangePassword />}
+  element={
+    <ProtectedRoute>
+      <ChangePassword />
+    </ProtectedRoute>
+  }
 />
 
 <Route
   path="/create-room"
-  element={<CreateRoom />}
+  element={
+    <AdminRoute>
+      <CreateRoom />
+    </AdminRoute>
+  }
 />
 
 <Route
@@ -129,6 +144,7 @@ function App() {
       </Routes>
 
       <Footer />
+      </div>
     </BrowserRouter>
   );
 }
